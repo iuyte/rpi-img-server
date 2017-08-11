@@ -72,13 +72,13 @@ func main() {
 			}
 
 			img = transform.FlipV(img)
-			currentPath = strings.Split(s, ".jpg")[0]
+			s = strings.Split(s, ".jpg")[0]
 
-			if err := imgio.Save(currentPath, img, imgio.PNG); err != nil {
+			if err := imgio.Save(s, img, imgio.PNG); err != nil {
 				fmt.Println(err)
 			}
 
-			currentPath += ".png"
+			currentPath = s + ".png"
 
 			time.Sleep(500 * time.Millisecond) // the 1 isn't strictly necessary, but it reads better this way
 		}
