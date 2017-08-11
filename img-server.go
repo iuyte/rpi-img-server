@@ -10,7 +10,7 @@ import (
 )
 
 var (
-	c           = camera.New("$HOME/tmp")
+	c           = camera.New("/home/pi/tmp")
 	currentPath = "" // current path to an image
 )
 
