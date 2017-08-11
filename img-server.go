@@ -52,7 +52,6 @@ func main() {
 			if err != nil {
 				panic(err)
 			}
-			currentPath = s
 			fmt.Println("Done")
 
 			if currentPath != "" {
@@ -63,6 +62,7 @@ func main() {
 				}
 			}
 
+			currentPath = s
 			time.Sleep(500 * time.Millisecond) // the 1 isn't strictly necessary, but it reads better this way
 		}
 	}()
