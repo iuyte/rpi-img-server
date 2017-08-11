@@ -6,8 +6,10 @@ import (
 	"os"
 	"time"
 
+	"github.com/anthonynsimon/bild/effect"
 	"github.com/anthonynsimon/bild/imgio"
 	"github.com/anthonynsimon/bild/transform"
+
 	"github.com/hoisie/web"
 	"github.com/loranbriggs/go-camera"
 )
@@ -61,10 +63,11 @@ func main() {
 				fmt.Println(err)
 			}
 
-			img = transform.FlipV(img)
+			r1 := transform.FlipV(img)
+			r2 := effect.EdgeDetection(img, 1.0)
 			s = s[:len(s)-5]
 
-			if err := imgio.Save(s, img, imgio.PNG); err != nil {
+			if err := imgio.Save(s, r2, imgio.PNG); err != nil {
 				fmt.Println(err)
 			}
 
