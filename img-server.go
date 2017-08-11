@@ -61,7 +61,7 @@ func main() {
 			}
 			currentPath = s
 			fmt.Println("Done")
-			time.Sleep(25 * time.Millisecond) // the 1 isn't strictly necessary, but it reads better this way
+			time.Sleep(500 * time.Millisecond) // the 1 isn't strictly necessary, but it reads better this way
 		}
 	}()
 
