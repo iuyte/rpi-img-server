@@ -64,7 +64,7 @@ func main() {
 			}
 
 			r1 := transform.FlipV(img)
-			r2 := effect.EdgeDetection(img, 1.0)
+			r2 := effect.EdgeDetection(r1, 1.0)
 			s = s[:len(s)-5]
 
 			if err := imgio.Save(s, r2, imgio.PNG); err != nil {
