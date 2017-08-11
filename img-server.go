@@ -2,11 +2,15 @@ package main
 
 import (
 	"fmt"
-	"github.com/hoisie/web"
-	"github.com/loranbriggs/go-camera"
 	"io/ioutil"
 	"os"
+	"strings"
 	"time"
+
+	"github.com/anthonynsimon/bild/imgio"
+	"github.com/anthonynsimon/bild/transform"
+	"github.com/hoisie/web"
+	"github.com/loranbriggs/go-camera"
 )
 
 var (
@@ -35,7 +39,7 @@ func serveImg(ctx *web.Context) string {
 		ctx.Abort(500, "Failed to read file: "+err.Error())
 		return ""
 	}
-	ctx.ContentType("image/jpeg")
+	ctx.ContentType("image/png")
 	return string(img)
 }
 
@@ -62,7 +66,20 @@ func main() {
 				}
 			}
 
-			currentPath = s
+			img, err := imgio.Open(s)
+			if err != nil {
+				fmt.Println(err)
+			}
+
+			img = transform.FlipV(img)
+			currentPath = strings.Split(s, ".jpg")[0]
+
+			if err := imgio.Save(currentPath, img, imgio.PNG); err != nil {
+				fmt.Println(err)
+			}
+
+			currentPath += ".png"
+
 			time.Sleep(500 * time.Millisecond) // the 1 isn't strictly necessary, but it reads better this way
 		}
 	}()
