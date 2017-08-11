@@ -47,6 +47,14 @@ func main() {
 	go func() {
 		for {
 			fmt.Print("Taking a picture... ")
+
+			s, err := c.Capture()
+			if err != nil {
+				panic(err)
+			}
+			currentPath = s
+			fmt.Println("Done")
+
 			if currentPath != "" {
 				err := os.Remove(currentPath) // remove the previous image if there is one
 				if err != nil {
@@ -55,12 +63,6 @@ func main() {
 				}
 			}
 
-			s, err := c.Capture()
-			if err != nil {
-				panic(err)
-			}
-			currentPath = s
-			fmt.Println("Done")
 			time.Sleep(500 * time.Millisecond) // the 1 isn't strictly necessary, but it reads better this way
 		}
 	}()
