@@ -56,7 +56,18 @@ func main() {
 			if err != nil {
 				panic(err)
 			}
-			fmt.Println("Done")
+
+			img, err := imgio.Open(s)
+			if err != nil {
+				fmt.Println(err)
+			}
+
+			img = transform.FlipV(img)
+			s = s[:len(s)-5]
+
+			if err := imgio.Save(s, img, imgio.PNG); err != nil {
+				fmt.Println(err)
+			}
 
 			if currentPath != "" {
 				err := os.Remove(currentPath) // remove the previous image if there is one
@@ -66,19 +77,8 @@ func main() {
 				}
 			}
 
-			img, err := imgio.Open(s)
-			if err != nil {
-				fmt.Println(err)
-			}
-
-			img = transform.FlipV(img)
-			s = strings.Split(s, ".jpg")[0]
-
-			if err := imgio.Save(s, img, imgio.PNG); err != nil {
-				fmt.Println(err)
-			}
-
 			currentPath = s + ".png"
+			fmt.Println("Done")
 
 			time.Sleep(500 * time.Millisecond) // the 1 isn't strictly necessary, but it reads better this way
 		}
